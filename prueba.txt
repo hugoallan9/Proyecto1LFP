@@ -1,0 +1,22 @@
+{ENCABEZADO}
+{TITULO '¡ITALIA CAMPEON!', 'AZUL'}  
+{SUBTITULO ‘GANO EN PENALES ’, ‘AZUL’ , ‘I’}  
+{AUTOR ‘Jose Pérez’, ‘Redactor’}  
+{DOCUMENTO ‘BERLIN {Ref  ‘Capital de Alemania’} - Italia se coronó campeón de 
+la Copa del Mundo tras vencer a Francia en disparos de penal, con una ventaja de 5-3.’}  
+{salto}  
+{salto}  
+{VAR  promedio, mayor, x}  
+{ASIGNA  x, 0}  
+{ var1 SUM  v1, v2}  
+{ promedio AVG  2, 1,2, x, 2,2,1}  
+{ mayor MAX 2, 1,2, x, 2,2,1}  
+{x CONT 2, 1,2, x, 2,2,1}   
+{DOCUMENTO  ‘Italia hizo en promedio ’, negro}
+{Escribir promedio}
+{DOCUMENTO  ‘goles en el mundial,  Su mayor cantidad de goles en un partido fue 
+de  ’, negro}
+{Escribir mayor}
+{DOCUMENTO  ‘jugando un total de ’, rojo}
+{Escribir x}
+{DOCUMENTO  ‘partidos. ’, rojo}

@@ -14,6 +14,9 @@ namespace Proyecto1LFP
         [STAThread]
         static void Main()
         {
+            Lectura prueba = new Lectura(@"D:\Dropbox\Sistemas\2Semestre2013\Lenguajes\Laboratorio\Proyectos\Proyecto1\Proyecto1LFP\prueba.txt");
+            prueba.leer();
+            prueba.imprimirLectura();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
