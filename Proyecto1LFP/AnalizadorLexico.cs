@@ -162,7 +162,7 @@ namespace Proyecto1LFP
             return respuesta;
         }
 
-        public void analizarSilaba(Char silaba)
+        public void analizarSilaba(Char silaba, Boolean EOF)
         {
             switch (estado)
             {
@@ -225,6 +225,7 @@ namespace Proyecto1LFP
                     }
                     else
                     {
+                        valorLexema = "" +silaba;
                         rutinaError("El símbolo no comienza ninguna ER");
                         lector.avanzar();
                     }
@@ -332,7 +333,12 @@ namespace Proyecto1LFP
                     }
                     break;
                 case 9:
-                    if (perteneceATodo(silaba))
+                     if (EOF)
+                    {
+                        lector.retroceder();
+                        rutinaAceptación(tokenString);
+                    }
+                    else if (perteneceATodo(silaba))
                     {
                         estado = 9;
                         valorLexema += silaba;
@@ -439,7 +445,14 @@ namespace Proyecto1LFP
             posFila.Add(calcularFila());
             posColumna.Add(calcularColumna());
             mensajeError.Add(p);
+            Console.WriteLine(valorLexema + "  con Token:  " + tokenError);
             valorLexema = "";
+            
+        }
+
+        public List<String> getArrayMensajeError()
+        {
+            return mensajeError;
         }
 
         private void rutinaAceptación(int tokenTmp)
@@ -470,9 +483,9 @@ namespace Proyecto1LFP
             int columna = lector.getColumna() + 1;
             if (valorLexema.Length > columna)
             {
-                ArrayList tmp = new ArrayList();
-                tmp = lector.getArray();
-                columna = tmp[lector.getFila()].ToString().Length - (valorLexema.Length - columna);
+                //ArrayList tmp = new ArrayList();
+                //tmp = lector.getArray();
+                //columna = tmp[lector.getFila()].ToString().Length - (valorLexema.Length - columna);
             }
             else
             {
@@ -491,10 +504,14 @@ namespace Proyecto1LFP
             while (silaba.CompareTo("EOF") != 0)
             {
                 entrada = silaba[0];
-                analizarSilaba(entrada);
+                analizarSilaba(entrada, false);
                 silaba = lector.avanzar();
             }
+            //lector.avanzar();
+            analizarSilaba(entrada, true);
             Console.WriteLine("*****************Fin del Analisis***************");
+            Console.WriteLine("Capacidad de error: " + mensajeError.Count);
+        
         }
 
         public List<int> getArrayToken()
@@ -637,15 +654,12 @@ namespace Proyecto1LFP
 
         public void limpiarArrays()
         {
-            lexema.RemoveAll(n);
+            lexema.RemoveAll(item => item == "\n");
             token.RemoveAll(item => item == 998);
 
         }
 
-        private bool n(string obj)
-        {
-            return obj.EndsWith("\n");
-        }
+      
 
 
         public List<int> getArrayPosFila()

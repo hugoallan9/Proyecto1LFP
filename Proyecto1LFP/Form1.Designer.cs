@@ -136,6 +136,7 @@
             this.tablaErroresBt.TabIndex = 7;
             this.tablaErroresBt.Text = "Mostar tabla de Errores";
             this.tablaErroresBt.UseVisualStyleBackColor = true;
+            this.tablaErroresBt.Click += new System.EventHandler(this.tablaErroresBt_Click);
             // 
             // Form1
             // 

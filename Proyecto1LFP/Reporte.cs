@@ -56,83 +56,157 @@ namespace Proyecto1LFP
 
         public void escribirLexemas()
         {
+            StreamWriter impresora = new StreamWriter(@ruta, true);
             try
             {
-            StreamWriter impresora = new StreamWriter(@ruta, true);
-            impresora.Write( "<div align = \"center\"> \n");
-            impresora.Write("      <table id=\"newspaper-b\" width=\"100\" cellspacing=\"2\" cellpadding=\"25\" border=\"0\">");
-            impresora.Write("<thead>\n" +
-            "<tr>\n" +
-            "<th scope=\"col\"> No. Palabra </th>\n" +
-            "<th scope=\"col\"> Token</th>\n" +
-            "<th scope=\"col\"> Tipo</th>\n" +
-            "<th scope=\"col\"> Lexema</th>\n" +
-            "<th scope=\"col\"> Linea </th>\n" +
-            "<th scope=\"col\">  Columna </th>\n" +
-            "<th scope=\"col\">  Palabra Reservada </th>\n" +
-            "</tr>\n" +
-            "</thead>");
-            
-            impresora.Write("<tbody>");
-            for ( int i = 0 ; i < lexema.Count  ; i++){
-                if (token[i] != 999)
+                
+                impresora.Write("<div align = \"center\"> \n");
+                impresora.Write("      <table id=\"newspaper-b\" width=\"100\" cellspacing=\"2\" cellpadding=\"25\" border=\"0\">");
+                impresora.Write("<thead>\n" +
+                "<tr>\n" +
+                "<th scope=\"col\"> No. Palabra </th>\n" +
+                "<th scope=\"col\"> Token</th>\n" +
+                "<th scope=\"col\"> Tipo</th>\n" +
+                "<th scope=\"col\"> Lexema</th>\n" +
+                "<th scope=\"col\"> Linea </th>\n" +
+                "<th scope=\"col\">  Columna </th>\n" +
+                "<th scope=\"col\">  Palabra Reservada </th>\n" +
+                "</tr>\n" +
+                "</thead>");
+
+                impresora.Write("<tbody>");
+                for (int i = 0; i < lexema.Count; i++)
                 {
-                    impresora.Write("<tr>\n" +
-               "    <td >\n" +
-               "   <font face=\"verdana, arial, helvetica\" size=2>\n"
-               + (i + 1) + "\n" +
-               "   </font>\n" +
-               "   </td>\n");
-                    impresora.Write(
+                    if (token[i] != 999)
+                    {
+                        impresora.Write("<tr>\n" +
                    "    <td >\n" +
                    "   <font face=\"verdana, arial, helvetica\" size=2>\n"
-                   + token[i] + "\n" +
+                   + (i + 1) + "\n" +
                    "   </font>\n" +
                    "   </td>\n");
-                    impresora.Write(
-                  "    <td >\n" +
-                  "   <font face=\"verdana, arial, helvetica\" size=2>\n"
-                  + anaTmp.getTipo(token[i]) + "\n" +
-                  "   </font>\n" +
-                  "   </td>\n");
-                    impresora.Write(
-                  "    <td >\n" +
-                  "   <font face=\"verdana, arial, helvetica\" size=2>\n"
-                  + lexema[i] + "\n" +
-                  "   </font>\n" +
-                  "   </td>\n");
-                    impresora.Write(
-                  "    <td >\n" +
-                  "   <font face=\"verdana, arial, helvetica\" size=2>\n"
-                  + posFila[i] + "\n" +
-                  "   </font>\n" +
-                  "   </td>\n");
-                    impresora.Write(
-                  "    <td >\n" +
-                  "   <font face=\"verdana, arial, helvetica\" size=2>\n"
-                  + posColumna[i] + "\n" +
-                  "   </font>\n" +
-                  "   </td>\n");
-                    impresora.Write(
-                    "    <td >\n" +
-                    "   <font face=\"verdana, arial, helvetica\" size=2>\n"
-                    + esReservada(token[i]) + "\n" +
-                    "   </font>\n" +
-                    "   </td>\n" + "</tr>");
+                        impresora.Write(
+                       "    <td >\n" +
+                       "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                       + token[i] + "\n" +
+                       "   </font>\n" +
+                       "   </td>\n");
+                        impresora.Write(
+                      "    <td >\n" +
+                      "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                      + anaTmp.getTipo(token[i]) + "\n" +
+                      "   </font>\n" +
+                      "   </td>\n");
+                        impresora.Write(
+                      "    <td >\n" +
+                      "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                      + lexema[i] + "\n" +
+                      "   </font>\n" +
+                      "   </td>\n");
+                        impresora.Write(
+                      "    <td >\n" +
+                      "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                      + posFila[i] + "\n" +
+                      "   </font>\n" +
+                      "   </td>\n");
+                        impresora.Write(
+                      "    <td >\n" +
+                      "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                      + posColumna[i] + "\n" +
+                      "   </font>\n" +
+                      "   </td>\n");
+                        impresora.Write(
+                        "    <td >\n" +
+                        "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                        + esReservada(token[i]) + "\n" +
+                        "   </font>\n" +
+                        "   </td>\n" + "</tr>");
+                    }
+
+
+
                 }
-               
-                
-               
-            }
-            
-            
+
+
                 impresora.Write("</table>\n " + "</div> \n" + "</tbody>" + "</BODY> \n" + "</HTML>");
                 impresora.Close();
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+
+            }
+            finally
+            {
+                impresora.Close();
+            }
         }
-            catch(IOException e){
-            Console.WriteLine("Error: " + e.Message);
-            
-        }
+
+        public void escribirErrores(List<String> mensajeError)
+        {
+            try
+            {
+                StreamWriter impresora = new StreamWriter(@ruta, true);
+                impresora.Write("<div align = \"center\"> \n");
+                impresora.Write("      <table id=\"newspaper-b\" width=\"100\" cellspacing=\"2\" cellpadding=\"25\" border=\"0\">");
+                impresora.Write("<thead>\n" +
+                "<tr>\n" +
+                "<th scope=\"col\"> No. Error </th>\n" +
+                "<th scope=\"col\"> Lexema</th>\n" +
+                "<th scope=\"col\"> No. Linea</th>\n" +
+                "<th scope=\"col\"> No. Columna </th>\n" +
+                "<th scope=\"col\"> Mensaje de Error </th>\n" +
+                "</tr>\n" +
+                "</thead>");
+                int j = 0;
+                for (int i = 0; i < lexema.Count; i++)
+                {
+                    if (token[i] == 999)
+                    {
+
+                        Console.WriteLine(lexema[i]);
+                        impresora.Write("<tr>\n" +
+                "    <td >\n" +
+                "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                + (i + 1) + "\n" +
+                "   </font>\n" +
+                "   </td>\n");
+                        impresora.Write(
+                       "    <td >\n" +
+                       "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                       + lexema[i] + "\n" +
+                       "   </font>\n" +
+                       "   </td>\n");
+                        impresora.Write(
+                      "    <td >\n" +
+                      "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                      + posFila[i]+ "\n" +
+                      "   </font>\n" +
+                      "   </td>\n");
+                        impresora.Write(
+                      "    <td >\n" +
+                      "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                      + posColumna[i] + "\n" +
+                      "   </font>\n" +
+                      "   </td>\n");
+                        impresora.Write(
+                        "    <td >\n" +
+                        "   <font face=\"verdana, arial, helvetica\" size=2>\n"
+                        + mensajeError[j] + "\n" +
+                        "   </font>\n" +
+                        "   </td>\n" + "</tr>");
+                        j++;
+                    }
+                }
+                impresora.Write("</table>\n " + "</div> \n" + "</tbody>" + "</BODY> \n" + "</HTML>");
+                impresora.Close();
+                
+
+            }
+            catch (IOException e)
+            {
+                Console.WriteLine("Error: " + e.Message);
+            }
         }
 
         private String esReservada(int get)
